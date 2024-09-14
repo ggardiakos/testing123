@@ -85,6 +85,16 @@ Get up and running in minutes:
 - [Winston](https://github.com/winstonjs/winston) - Universal logging library
 - [Sentry](https://sentry.io/) - Error tracking and performance monitoring
 
+## 🛠️ Error Handling
+
+The application implements consistent error handling across all services:
+
+- **Custom Exception Filters**: To centralize error responses and standardize error structures.
+- **Sentry**: For logging and tracking errors in production environments.
+- **Detailed Error Logging**: Through Winston to ensure errors are logged with useful context.
+
+Ensure to follow this structure when adding new features to maintain consistency in error handling.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -127,18 +137,79 @@ pnpm run start:dev
 
 Visit `http://localhost:3000` to access the application.
 
-## 🧪 Testing
+## 🔒 Security Best Practices
 
+The project has several built-in security features:
+
+- **CORS**: Configured with controlled origins for enhanced security.
+- **Helmet**: Adds several HTTP headers to secure the app.
+- **Rate Limiting**: Managed through @nestjs/throttler to prevent abuse and DDoS attacks.
+
+Best Practices for Production:
+- Always use HTTPS.
+- Rotate and store sensitive credentials (e.g., API keys) using services like AWS Secrets Manager.
+- Sanitize and validate all user inputs using ValidationPipe and Joi.
+
+## ⚙️ Scalability Considerations
+
+The app is designed with scalability in mind. Here are some tips for optimizing performance under high loads:
+
+- **Cluster Mode**: Run the app in cluster mode to take advantage of multiple CPU cores. Use the built-in NestJS clustering or PM2.
+- **Horizontal Scaling**: Redis and PostgreSQL should be configured for horizontal scaling to handle increasing load.
+- **Load Balancing**: Use load balancers (e.g., NGINX) to distribute traffic across multiple instances.
+- **Caching**: Ensure frequently accessed data is cached using Redis to reduce load on the database.
+
+## 📈 Monitoring & Alerts
+
+- **Datadog**: Configured for monitoring application performance, including metrics like request throughput and latency.
+- **AWS X-Ray**: Integrated for tracing requests to understand the flow of data and detect bottlenecks.
+- **Sentry**: Captures and tracks errors across environments, providing detailed stack traces.
+
+Developers should regularly check these tools to ensure the application is healthy. Custom alerts can be set up in Datadog for specific metrics (e.g., high memory usage or error rates).
+
+## 📚 GraphQL Documentation
+
+For GraphQL APIs, you can explore and introspect the schema using:
+
+- **GraphQL Playground**: Available at `/graphql` for development environments.
+- **Apollo Studio**: For advanced schema tracking and insights in production.
+
+Ensure to update the schema as new GraphQL queries or mutations are added to the app.
+
+## 🛠️ Core Helper Methods
+
+- `getRedirectUrl`: Determines where to redirect users after successful authentication. By default, it redirects to `/dashboard` but can be customized based on application routing.
+- **Session Management**: Sessions are managed securely, and tokens are stored with encryption when necessary.
+
+## 🧪 Unit & E2E Testing
+
+The project includes a comprehensive suite of unit and end-to-end tests:
+
+- **Unit Testing**: Write tests for each service and controller using Jest.
+- **E2E Testing**: End-to-end tests are configured with Cypress or TestCafe to ensure entire workflows function correctly.
+
+Run tests with:
 ```bash
-# Unit tests
 pnpm run test
-
-# E2E tests
 pnpm run test:e2e
-
-# Test coverage
-pnpm run test:cov
 ```
+
+Ensure new features are accompanied by tests to maintain reliability and prevent regressions.
+
+## 🏗️ Job Queue Configuration (BullMQ)
+
+BullMQ is used to manage background job processing. To configure it:
+
+1. Ensure Redis is running.
+2. Add job handlers in the appropriate services.
+3. Monitor the queue with tools like Bull Board for real-time job status.
+
+BullMQ is already configured for:
+- Sending notifications.
+- Batch processing Shopify orders.
+- Regular cache updates.
+
+Configure job prioritization and retry policies as needed.
 
 ## 📦 Deployment
 
@@ -171,17 +242,6 @@ docker-compose up --build
 Interactive API documentation is available via Swagger. After starting the application, visit:
 
 `http://localhost:3000/api-docs`
-
-## 🔒 Security Enhancements
-
-- Implemented rate limiting with `@nestjs/throttler`
-- HTTPS configuration for production environments
-- Secure secret management using Kubernetes Secrets or AWS Secrets Manager
-
-## 📊 Monitoring and Logging
-
-- **Prometheus & Grafana**: For real-time monitoring and alerting
-- **ELK Stack**: For centralized logging and log analysis
 
 ## 🤝 Contributing
 
