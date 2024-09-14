@@ -5,7 +5,14 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT">
+  <img src="https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg" alt="Node.js Version">
+  <img src="https://img.shields.io/badge/nestjs-8.x-red.svg" alt="NestJS Version">
+</p>
+
+<p align="center">
   <a href="#introduction">Introduction</a> •
+  <a href="#quick-start-guide">Quick Start</a> •
   <a href="#key-features">Key Features</a> •
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#getting-started">Getting Started</a> •
@@ -15,15 +22,44 @@
   <a href="#license">License</a>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/github/license/yourusername/your-repo-name" alt="License">
-  <img src="https://img.shields.io/github/last-commit/yourusername/your-repo-name" alt="Last Commit">
-  <img src="https://img.shields.io/github/issues/yourusername/your-repo-name" alt="Issues">
-</p>
-
 ## Introduction
 
 This project is a robust NestJS backend designed for seamless integration with Shopify. It provides a powerful API for managing Shopify resources such as products, orders, and collections. Built with scalability and performance in mind, it leverages Mikro-ORM for efficient database management, Redis for lightning-fast caching, and BullMQ for reliable background job processing.
+
+## 🚀 Quick Start Guide
+
+Get up and running in minutes:
+
+1. **Clone and Install**
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+   pnpm install
+   ```
+
+2. **Set Up Environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your Shopify API credentials and database info
+   ```
+
+3. **Start Development Server**
+   ```bash
+   pnpm run start:dev
+   ```
+
+4. **Test Shopify Connection**
+   ```bash
+   curl http://localhost:3000/shopify/products
+   # Should return a list of products from your Shopify store
+   ```
+
+5. **Explore API Documentation**
+   Open `http://localhost:3000/api-docs` in your browser to see available endpoints.
+
+📘 **Pro Tip:** Use `pnpm run start:debug` for debugging with VSCode.
+
+🔧 **Troubleshooting:** If you encounter any issues, check our [Common Issues](TROUBLESHOOTING.md) guide.
 
 ## 🌟 Key Features
 
