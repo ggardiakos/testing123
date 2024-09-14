@@ -1,72 +1,37 @@
 # 🛍️ Shopify Backend Integration with NestJS
 
-<p align="center">
-  <img src="https://your-logo-url-here.com" alt="Project Logo" width="200">
-</p>
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-blue.svg)
+![NestJS Version](https://img.shields.io/badge/nestjs-8.x-brightgreen.svg)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT">
-  <img src="https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg" alt="Node.js Version">
-  <img src="https://img.shields.io/badge/nestjs-8.x-red.svg" alt="NestJS Version">
-</p>
+## Table of Contents
 
-<p align="center">
-  <a href="#introduction">Introduction</a> •
-  <a href="#quick-start-guide">Quick Start</a> •
-  <a href="#key-features">Key Features</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#getting-started">Getting Started</a> •
-  <a href="#deployment">Deployment</a> •
-  <a href="#api-documentation">API Docs</a> •
-  <a href="#contributing">Contributing</a> •
-  <a href="#license">License</a>
-</p>
+- [Introduction](#introduction)
+- [Features](#features)
+- [Demo](#demo)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Testing](#testing)
+- [API Documentation](#api-documentation)
+- [Deployment](#deployment)
+- [Security Enhancements](#security-enhancements)
+- [Monitoring and Logging](#monitoring-and-logging)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Introduction
 
-This project is a robust NestJS backend designed for seamless integration with Shopify. It provides a powerful API for managing Shopify resources such as products, orders, and collections. Built with scalability and performance in mind, it leverages Mikro-ORM for efficient database management, Redis for lightning-fast caching, and BullMQ for reliable background job processing.
+This project is a robust NestJS backend designed for seamless integration with Shopify. It provides a powerful API for managing Shopify resources such as products, orders, and collections. Built with scalability and performance in mind, it leverages Mikro-ORM for efficient database management, Redis for lightning-fast caching, and BullMQ for reliable background job processing. The architecture ensures scalability, security, and monitoring using modern DevOps practices.
 
-## 🚀 Quick Start Guide
-
-Get up and running in minutes:
-
-1. **Clone and Install**
-   ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
-   pnpm install
-   ```
-
-2. **Set Up Environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your Shopify API credentials and database info
-   ```
-
-3. **Start Development Server**
-   ```bash
-   pnpm run start:dev
-   ```
-
-4. **Test Shopify Connection**
-   ```bash
-   curl http://localhost:3000/shopify/products
-   # Should return a list of products from your Shopify store
-   ```
-
-5. **Explore API Documentation**
-   Open `http://localhost:3000/api-docs` in your browser to see available endpoints.
-
-📘 **Pro Tip:** Use `pnpm run start:debug` for debugging with VSCode.
-
-🔧 **Troubleshooting:** If you encounter any issues, check our [Common Issues](TROUBLESHOOTING.md) guide.
-
-## 🌟 Key Features
+## Features
 
 - **🔗 Shopify API Integration**: Manage Shopify products, collections, and orders using both REST and GraphQL APIs
+- **🌐 Contentful Integration**: Manage and synchronize content with Contentful CMS
 - **⚡ Redis Caching**: Optimize performance with intelligent Redis caching
 - **📊 Background Job Processing**: Efficiently handle long-running tasks with BullMQ
-- **🗄️ Mikro-ORM**: Streamlined database operations with PostgreSQL
+- **🗄️ Mikro-ORM**: Streamlined database operations with PostgreSQL or MySQL
 - **📈 Prometheus Monitoring**: Real-time system performance metrics
 - **📝 Winston Logging**: Advanced, structured logging for better debugging
 - **🚨 Sentry Error Tracking**: Proactive error monitoring and performance tracking
@@ -74,193 +39,270 @@ Get up and running in minutes:
 - **☸️ Kubernetes-Ready**: Pre-configured for scalable Kubernetes deployment
 - **🧪 Comprehensive Testing**: Includes unit, integration, and E2E tests
 
-## 🛠️ Tech Stack
+## Demo
 
-- [NestJS](https://nestjs.com/) - A progressive Node.js framework
-- [PostgreSQL](https://www.postgresql.org/) - Advanced open-source database
-- [Mikro-ORM](https://mikro-orm.io/) - TypeScript ORM for Node.js
-- [Redis](https://redis.io/) - In-memory data structure store
-- [BullMQ](https://docs.bullmq.io/) - Queue management for Node.js
-- [Prometheus](https://prometheus.io/) - Monitoring and alerting toolkit
-- [Winston](https://github.com/winstonjs/winston) - Universal logging library
-- [Sentry](https://sentry.io/) - Error tracking and performance monitoring
+[Include screenshots or a link to a live demo if available]
 
-## 🛠️ Error Handling
+![Demo Screenshot](./screenshots/demo.png)
 
-The application implements consistent error handling across all services:
-
-- **Custom Exception Filters**: To centralize error responses and standardize error structures.
-- **Sentry**: For logging and tracking errors in production environments.
-- **Detailed Error Logging**: Through Winston to ensure errors are logged with useful context.
-
-Ensure to follow this structure when adding new features to maintain consistency in error handling.
-
-## 🚀 Getting Started
+## Installation
 
 ### Prerequisites
 
 - Node.js (v14 or higher)
-- PostgreSQL
+- PostgreSQL or MySQL
 - Redis
 - Shopify Partner Account
+- Contentful Account
 - Docker & Docker Compose
 
-### Installation
+### Steps
 
-1. **Clone the Repository**
+1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
-   cd my-shopify-backend
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
    ```
 
-2. **Install Dependencies**
+2. **Install Dependencies:**
    ```bash
    pnpm install
    ```
 
-3. **Set Up Environment Variables**
+3. **Set Up Environment Variables:**
+   Copy the `.env.example` file to `.env` and configure it with your credentials:
    ```bash
    cp .env.example .env
-   # Edit .env with your configuration
    ```
+   Update the `.env` file with your Shopify API keys, Redis config, database details, and other relevant information.
 
-4. **Database Setup**
+4. **Database Setup:**
+   Run migrations to set up the database:
    ```bash
    pnpm mikro-orm migration:up
    ```
 
-### Running the Application
+## Configuration
+
+The project supports both PostgreSQL and MySQL:
+
+- **PostgreSQL**: Install PostgreSQL locally and set `type: 'postgresql'` in `mikro-orm.config.ts`.
+- **MySQL**: Keep the `@mikro-orm/mysql` package and set `type: 'mysql'` in the configuration file.
+
+## Running the Application
+
+To start the app in development mode:
 
 ```bash
 pnpm run start:dev
 ```
 
-Visit `http://localhost:3000` to access the application.
+Your application will be available at `http://localhost:3000`.
 
-## 🔒 Security Best Practices
+## Testing
 
-The project has several built-in security features:
-
-- **CORS**: Configured with controlled origins for enhanced security.
-- **Helmet**: Adds several HTTP headers to secure the app.
-- **Rate Limiting**: Managed through @nestjs/throttler to prevent abuse and DDoS attacks.
-
-Best Practices for Production:
-- Always use HTTPS.
-- Rotate and store sensitive credentials (e.g., API keys) using services like AWS Secrets Manager.
-- Sanitize and validate all user inputs using ValidationPipe and Joi.
-
-## ⚙️ Scalability Considerations
-
-The app is designed with scalability in mind. Here are some tips for optimizing performance under high loads:
-
-- **Cluster Mode**: Run the app in cluster mode to take advantage of multiple CPU cores. Use the built-in NestJS clustering or PM2.
-- **Horizontal Scaling**: Redis and PostgreSQL should be configured for horizontal scaling to handle increasing load.
-- **Load Balancing**: Use load balancers (e.g., NGINX) to distribute traffic across multiple instances.
-- **Caching**: Ensure frequently accessed data is cached using Redis to reduce load on the database.
-
-## 📈 Monitoring & Alerts
-
-- **Datadog**: Configured for monitoring application performance, including metrics like request throughput and latency.
-- **AWS X-Ray**: Integrated for tracing requests to understand the flow of data and detect bottlenecks.
-- **Sentry**: Captures and tracks errors across environments, providing detailed stack traces.
-
-Developers should regularly check these tools to ensure the application is healthy. Custom alerts can be set up in Datadog for specific metrics (e.g., high memory usage or error rates).
-
-## 📚 GraphQL Documentation
-
-For GraphQL APIs, you can explore and introspect the schema using:
-
-- **GraphQL Playground**: Available at `/graphql` for development environments.
-- **Apollo Studio**: For advanced schema tracking and insights in production.
-
-Ensure to update the schema as new GraphQL queries or mutations are added to the app.
-
-## 🛠️ Core Helper Methods
-
-- `getRedirectUrl`: Determines where to redirect users after successful authentication. By default, it redirects to `/dashboard` but can be customized based on application routing.
-- **Session Management**: Sessions are managed securely, and tokens are stored with encryption when necessary.
-
-## 🧪 Unit & E2E Testing
-
-The project includes a comprehensive suite of unit and end-to-end tests:
-
-- **Unit Testing**: Write tests for each service and controller using Jest.
-- **E2E Testing**: End-to-end tests are configured with Cypress or TestCafe to ensure entire workflows function correctly.
-
-Run tests with:
+### Running Unit Tests
 ```bash
 pnpm run test
+```
+
+### Running End-to-End Tests
+```bash
 pnpm run test:e2e
 ```
 
-Ensure new features are accompanied by tests to maintain reliability and prevent regressions.
+### Linting
+```bash
+pnpm run lint
+```
 
-## 🏗️ Job Queue Configuration (BullMQ)
+## API Documentation
 
-BullMQ is used to manage background job processing. To configure it:
+The project includes interactive API documentation using Swagger. Access it at `http://localhost:3000/api-docs` after starting the application.
 
-1. Ensure Redis is running.
-2. Add job handlers in the appropriate services.
-3. Monitor the queue with tools like Bull Board for real-time job status.
-
-BullMQ is already configured for:
-- Sending notifications.
-- Batch processing Shopify orders.
-- Regular cache updates.
-
-Configure job prioritization and retry policies as needed.
-
-## 📦 Deployment
+## Deployment
 
 ### Docker Deployment
 
-```bash
-docker-compose up --build
-```
+To run the application with Docker:
+
+1. Build the Docker Image:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Access the Application:
+   The app should be running on `http://localhost:3000`.
 
 ### Kubernetes Deployment
 
-1. Apply secrets:
+1. Apply Secrets:
+   Configure your secrets in `k8s/secrets.yaml`:
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: app-secrets
+   type: Opaque
+   data:
+     SHOPIFY_API_KEY: <base64_encoded_api_key>
+     SHOPIFY_API_SECRET_KEY: <base64_encoded_api_secret>
+     CONTENTFUL_SPACE_ID: <base64_encoded_space_id>
+     CONTENTFUL_ACCESS_TOKEN: <base64_encoded_access_token>
+     SENTRY_DSN: <base64_encoded_sentry_dsn>
+     REDIS_PASSWORD: <base64_encoded_redis_password>
+     AWS_ACCESS_KEY_ID: <base64_encoded_aws_access_key_id>
+     AWS_SECRET_ACCESS_KEY: <base64_encoded_aws_secret_access_key>
+   ```
+
+2. Apply the secrets:
    ```bash
    kubectl apply -f k8s/secrets.yaml
    ```
 
-2. Deploy Redis and the application:
+3. Deploy Application and Redis:
    ```bash
    kubectl apply -f k8s/redis-deployment.yaml
    kubectl apply -f k8s/deployment.yaml
    ```
 
-3. Set up auto-scaling:
+4. Set up auto-scaling:
    ```bash
    kubectl apply -f k8s/hpa.yaml
    ```
 
-## 📚 API Documentation
+## Security Enhancements
 
-Interactive API documentation is available via Swagger. After starting the application, visit:
+### Rate Limiting with Throttler
 
-`http://localhost:3000/api-docs`
+To protect your API from abuse, rate limiting is implemented using the `@nestjs/throttler` package.
 
-## 🤝 Contributing
+1. Install Throttler:
+   ```bash
+   pnpm add @nestjs/throttler
+   ```
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+2. Configure in App Module:
+   ```typescript
+   @Module({
+     imports: [
+       ThrottlerModule.forRoot({
+         ttl: 60,
+         limit: 10,
+       }),
+       // other imports...
+     ],
+   })
+   ```
 
-## 📄 License
+### HTTPS Configuration
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Ensure that your application is using HTTPS in production. Here's an example Nginx configuration for redirecting HTTP to HTTPS:
 
-## 📞 Support
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    return 301 https://$host$request_uri;
+}
 
-For support, questions, or more information, please [open an issue](https://github.com/yourusername/your-repo-name/issues) or contact the project maintainer at [email@example.com].
+server {
+    listen 443 ssl;
+    server_name yourdomain.com www.yourdomain.com;
 
-## 🙏 Acknowledgements
+    ssl_certificate /etc/ssl/certs/yourdomain.com.crt;
+    ssl_certificate_key /etc/ssl/private/yourdomain.com.key;
 
-- [NestJS](https://nestjs.com/)
-- [Shopify API](https://shopify.dev/api)
-- [Mikro-ORM](https://mikro-orm.io/)
-- [BullMQ](https://docs.bullmq.io/)
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+### Secret Management
+
+Manage sensitive data using Kubernetes Secrets or AWS Secrets Manager for production environments. Example usage:
+
+```typescript
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { SecretManagerService } from '../../common/services/secret-manager.service';
+
+@Injectable()
+export class SomeService implements OnModuleInit {
+  private shopifyApiKey: string;
+  private shopifyApiSecret: string;
+
+  constructor(private readonly secretManagerService: SecretManagerService) {}
+
+  async onModuleInit() {
+    this.shopifyApiKey = await this.secretManagerService.getSecret('SHOPIFY_API_KEY');
+    this.shopifyApiSecret = await this.secretManagerService.getSecret('SHOPIFY_API_SECRET');
+    // Use the secrets as needed
+  }
+
+  // ... other methods
+}
+```
+
+## Monitoring and Logging
+
+### Prometheus and Grafana for Monitoring
+
+1. Install Prometheus:
+   ```bash
+   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   helm install prometheus prometheus-community/prometheus
+   ```
+
+2. Install Grafana:
+   ```bash
+   helm repo add grafana https://grafana.github.io/helm-charts
+   helm install grafana grafana/grafana
+   ```
+
+3. Expose Metrics:
+   Ensure your NestJS app exposes metrics for Prometheus:
+   ```typescript
+   @Controller('/metrics')
+   export class MetricsController {
+     @Get()
+     getMetrics() {
+       return Prometheus.register.metrics();
+     }
+   }
+   ```
+
+### Centralized Logging
+
+Use the ELK Stack (Elasticsearch, Logstash, Kibana) for centralized logging. Install it using Helm:
+
+```bash
+helm repo add elastic https://helm.elastic.co
+helm install elasticsearch elastic/elasticsearch
+helm install kibana elastic/kibana
+```
+
+## Contributing
+
+To contribute to this project:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For support, questions, or more information, contact the project maintainer at [email@example.com].
 
 ---
 
